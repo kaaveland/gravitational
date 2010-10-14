@@ -1,12 +1,13 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H 1
+#include <math.h>
 
 typedef struct vector 
 {
      double x, y, z;
 } vector_t;
 
-struct particle
+typedef struct particle
 {
      vector_t position;
      vector_t velocity;
@@ -15,15 +16,24 @@ struct particle
      double radius;
 } particle_t;
 
-
+void vector_copy(vector_t *dst, vector_t *src);
 /* In-place vector addition: vector_add(v1, v2) -> v1 += v2 */
-void vector_add(vector_t *, vector_t *);
-void vector_scale(vector_t *, double);
+void vector_add(vector_t *dst, vector_t *src);
+/* In-place vector subtraction: vector_sub(v1, v2) -> v1 -= v2 */
+void vector_sub(vector_t *dst, vector_t *src);
+/* In-place vector scaling: vector_scale(v1, f) -> v1 *= f */
+void vector_scale(vector_t *dst, double factor);
+/* In-place vector normalization */
+void vector_normalize(vector_t *dst);
+double vector_length(vector_t *src);
 
 /* Find the center of mass of particles.
  * This means creating a particle at the weighted (by mass) average
- * position, with a mass equal to the sum of masses in particles */
-particle_t mass_center(particle_t *, unsigned amount);
-
+ * position, with a mass equal to the sum of masses in particles.
+ * We can skip one particle. If this is not desirable, pass a negative index*/
+particle_t mass_center(particle_t *particles, int amount,  int skip);
+/* Check if two particles intersect. When this happens, newtonian gravity
+ * acts in strange ways, and we want to merge the particles. */
+int particle_intersection(particle_t *p1, particle_t *p2);
      
 #endif
