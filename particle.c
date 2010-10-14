@@ -72,4 +72,16 @@ mass_center(particle_t *particles, int amount, int skip)
      return result;
 }
 
-	  
+particle_t
+particle_create(vector_t pos, vector_t vel, double mass, radius_calc f)
+{
+     particle_t result = {
+	  .position = pos,
+	  .velocity = vel,
+	  .mass = mass,
+	  .radius = log(mass)
+     };
+     if (f)
+	  result.radius = f(mass);
+     return result;
+}

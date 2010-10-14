@@ -16,6 +16,8 @@ typedef struct particle
      double radius;
 } particle_t;
 
+typedef double (*radius_calc)(double);
+
 void vector_copy(vector_t *dst, vector_t *src);
 /* In-place vector addition: vector_add(v1, v2) -> v1 += v2 */
 void vector_add(vector_t *dst, vector_t *src);
@@ -35,5 +37,7 @@ particle_t mass_center(particle_t *particles, int amount,  int skip);
 /* Check if two particles intersect. When this happens, newtonian gravity
  * acts in strange ways, and we want to merge the particles. */
 int particle_intersection(particle_t *p1, particle_t *p2);
-     
+/* Create a new particle */
+particle_t particle_create(vector_t pos, vector_t vel, double mass, radius_calc f);
+
 #endif
