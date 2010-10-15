@@ -1,6 +1,7 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H 1
 #include <math.h>
+#include <stdio.h>
 
 typedef struct vector 
 {
@@ -17,6 +18,8 @@ typedef struct particle
 } particle_t;
 
 typedef double (*radius_calc)(double);
+radius_calc get_radius_calc(void);
+void set_radius_calc(radius_calc);
 
 void vector_copy(vector_t *dst, vector_t *src);
 /* In-place vector addition: vector_add(v1, v2) -> v1 += v2 */
@@ -39,5 +42,8 @@ particle_t mass_center(particle_t *particles, int amount,  int skip);
 int particle_intersection(particle_t *p1, particle_t *p2);
 /* Create a new particle */
 particle_t particle_create(vector_t pos, vector_t vel, double mass, radius_calc f);
+/* Merge two particles into one - call this if there's an intersection. */
+particle_t particle_merge(particle_t *p1, particle_t *p2);
+void particle_print(particle_t *p, FILE *fp);
 
 #endif

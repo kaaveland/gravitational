@@ -1,5 +1,17 @@
 #include "include/particle.h"
 
+static radius_calc calc_radius = log;
+
+radius_calc get_radius_calc(void)
+{
+     return calc_radius;
+}
+
+void set_radius_calc(radius_calc calc)
+{
+     calc_radius = calc;
+}
+
 void
 vector_copy(vector_t *dst, vector_t *src)
 {
@@ -55,7 +67,6 @@ particle_t
 mass_center(particle_t *particles, int amount, int skip)
 {
      particle_t result;
-     vector_t position;
      int i;
      
      for (i = 0; i < amount; i++) {
@@ -67,7 +78,7 @@ mass_center(particle_t *particles, int amount, int skip)
 	  vector_t tmp = particles[i].position;
 	  if (i == skip) continue;
 	  vector_scale(&tmp, weight);
-	  vector_add(&particles[i].position, &tmp);
+	  vector_add(&result.position, &tmp);
      }
      return result;
 }
@@ -85,3 +96,29 @@ particle_create(vector_t pos, vector_t vel, double mass, radius_calc f)
 	  result.radius = f(mass);
      return result;
 }
+
+particle_t
+particle_merge(particle_t *p1, particle_t *p2)
+{
+     double mass = p1->mass + p2->mass;
+     vector_t pos, vel;
+
+     pos.x = (p1->position.x * p1->mass + p2->position.x * p2->mass) / mass;
+     pos.y = (p1->position.y * p1->mass + p2->position.y * p2->mass) / mass;
+     pos.z = (p1->position.z * p1->mass + p2->position.z * p2->mass) / mass;
+
+     vel.x = (p1->velocity.x * p1->mass + p2->velocity.x * p2->mass) / mass;
+     vel.y = (p1->velocity.y * p1->mass + p2->velocity.y * p2->mass) / mass;
+     vel.z = (p1->velocity.z * p1->mass + p2->velocity.z * p2->mass) / mass;
+
+     return particle_create(pos, vel, mass, calc_radius);
+}
+
+void
+particle_print(particle_t *p, FILE *fp)
+{
+     fprintf(fp, "<Particle [Mass %g, Radius %g] in (%g, %g, %g) heading (%g, %g, %g)",
+	     p->mass, p->radius, p->position.x, p->position.y, p->position.z,
+	     p->velocity.x, p->velocity.y, p->velocity.z);
+}
+
