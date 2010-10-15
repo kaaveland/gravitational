@@ -33,3 +33,15 @@ gravitation(particle_t *src, particle_t *dst)
      
      return force;
 }
+
+void
+integrate(particle_t *dst, particle_t *src, vector_t force, double dt)
+{
+     /* F = ma -> a = m / F 
+      * int(a) -> v = (m / F) * a + v0
+      */
+     double factor = 1 / src->mass;
+     vector_scale(&force, factor);
+     
+     
+}

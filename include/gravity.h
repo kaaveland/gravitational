@@ -8,7 +8,7 @@
 /* F = G m1m2 / r ^ 2 */
 vector_t gravitation(particle_t *src, particle_t *dst);
 /* a = F / m */
-vector_t acceleration(particle_t *, particle_t *);
+void integrate(particle_t *dst, particle_t *src, vector_t force, double dt);
 
 /* For outside use only */
 void set_gravity(double factor);
