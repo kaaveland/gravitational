@@ -39,9 +39,18 @@ integrate(particle_t *dst, particle_t *src, vector_t force, double dt)
 {
      /* F = ma -> a = m / F 
       * int(a) -> v = (m / F) * a + v0
-      */
-     double factor = 1 / src->mass;
-     vector_scale(&force, factor);
-     
-     
+      * v = v0 + dt * a = v0 + dt (m sum(r ^ 2 / (G m mi)) */
+     vector_t acceleration;
+     acceleration.x = src->mass / force.x;
+     acceleration.y = src->mass / force.y;
+     acceleration.z = src->mass / force.z;
+     vector_scale(&acceleration, dt);
+     dst->mass = src->mass;
+     dst->velocity = src->velocity;
+     dst->position = src->position;
+     dst->radius = src->radius;
+     vector_add(&dst->velocity, &acceleration);
+     acceleration = dst->velocity;
+     vector_scale(&acceleration, dt);
+     vector_add(&dst->position, &acceleration);
 }
