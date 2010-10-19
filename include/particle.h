@@ -3,6 +3,8 @@
 #include <math.h>
 #include <stdio.h>
 
+#define MASS_DENSITY 1.408E3 /* Assume density of the sun for mass */
+
 typedef struct vector 
 {
      double x, y, z;

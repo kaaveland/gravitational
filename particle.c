@@ -1,11 +1,16 @@
 #include "include/particle.h"
 
-/* FIXME: Come up with a better model.
- * The earth has mass 6E24 and radius 6E6 or so.
- * On the other hand, Jupiter has mass 2E27 and
- * radius 7E7. Can assume that planets are gas-planets
- * but will cause more collisions than otherwise. */
-static radius_calc calc_radius = log;
+double
+radius(double mass) 
+{
+     /* V = 4 PI V / 3
+      * r ^ 3 = (4V / 3PI)
+      */
+     double volume = mass / MASS_DENSITY;
+     return pow((4.0 / (3.0 * M_PI)) * volume, 1.0 / 3.0);
+}
+
+static radius_calc calc_radius = radius;
 
 radius_calc get_radius_calc(void)
 {
@@ -47,14 +52,16 @@ vector_length(vector_t *src)
      return sqrt(src->x * src->x + src->y * src->y + src->z * src->z);
 }
 
-void vector_sub(vector_t *dst, vector_t *src)
+void
+vector_sub(vector_t *dst, vector_t *src)
 {
      vector_t tmp = *src;
      vector_scale(&tmp, -1);
      vector_add(dst, &tmp);
 }
 
-void vector_normalize(vector_t *dst)
+void
+vector_normalize(vector_t *dst)
 {
      double len = vector_length(dst);
      vector_scale(dst, 1 / len);
@@ -124,7 +131,7 @@ void
 particle_sprint(particle_t *p, char *buf)
 {
      /* FIXME: Should be able to scale by light years or AUs or whatever */
-     sprintf(buf, "<Particle [Mass %g, Radius %g] in [%g, %g, %g] heading to [%g, %g, %g]",
+     sprintf(buf, "<[Mass %g, Radius %g] pos = [%g, %g, %g] v = [%g, %g, %g]>",
 	     p->mass, p->radius, p->position.x, p->position.y, p->position.z,
 	     p->velocity.x, p->velocity.y, p->velocity.z);
 }
@@ -136,4 +143,3 @@ particle_print(particle_t *p, FILE *fp)
      particle_sprint(p, buf);
      fprintf(fp, "%s", buf);
 }
-

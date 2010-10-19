@@ -1,4 +1,4 @@
-CFLAGS = -std=gnu99 -Wall -Wextra -lm -DDEBUG=1
+CFLAGS = -std=gnu99 -Wall -Wextra -lm
 OBJECTS = particle.o gravity.o
 
 test: lib
