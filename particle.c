@@ -1,6 +1,10 @@
 #include "include/particle.h"
 
-
+/* FIXME: Come up with a better model.
+ * The earth has mass 6E24 and radius 6E6 or so.
+ * On the other hand, Jupiter has mass 2E27 and
+ * radius 7E7. Can assume that planets are gas-planets
+ * but will cause more collisions than otherwise. */
 static radius_calc calc_radius = log;
 
 radius_calc get_radius_calc(void)
@@ -104,6 +108,7 @@ particle_merge(particle_t *p1, particle_t *p2)
      double mass = p1->mass + p2->mass;
      vector_t pos, vel;
 
+     /* FIXME: This could be cleverer. */
      pos.x = (p1->position.x * p1->mass + p2->position.x * p2->mass) / mass;
      pos.y = (p1->position.y * p1->mass + p2->position.y * p2->mass) / mass;
      pos.z = (p1->position.z * p1->mass + p2->position.z * p2->mass) / mass;
@@ -118,6 +123,7 @@ particle_merge(particle_t *p1, particle_t *p2)
 void
 particle_sprint(particle_t *p, char *buf)
 {
+     /* FIXME: Should be able to scale by light years or AUs or whatever */
      sprintf(buf, "<Particle [Mass %g, Radius %g] in [%g, %g, %g] heading to [%g, %g, %g]",
 	     p->mass, p->radius, p->position.x, p->position.y, p->position.z,
 	     p->velocity.x, p->velocity.y, p->velocity.z);

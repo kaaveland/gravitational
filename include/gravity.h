@@ -1,5 +1,8 @@
 #ifndef GRAVITY_H
 #define GRAVITY_H 1
+/* FIXME: Add some GRAVITY_* constants that allows user to work in
+ * different units, eg: time -> year, distance -> au, speed -> au/year
+ * -> gravitational constant = 1. Others as well, ie lightyears and so on. */
 /* Useful constants */
 #define AU 149597871000.0 /* AU in meters */
 #define YEAR_SECONDS 60.0 * 60.0 * 24.0 * 365.25 /* Seconds in a year */
