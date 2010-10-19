@@ -3,12 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define AU 149597871000.0 /* AU in meters */
-#define SOLAR_MASS 2E30 /* Solar mass in kgs */
-#define EARTH_MASS 6E24 /* Earths mass in kgs */
-#define EARTH_SPEED 29780 /* Average earth speed in m/s */
-#define GRAVITY_C 6.67428E-11 /* Gravitational constant */
-
 vector_t sun_pos = { .x = 0, .y = 0, .z = 0};
 vector_t sun_vel = { .x = 0, .y = 0, .z = 0};
 
@@ -20,8 +14,8 @@ particle_t sun_t, earth_t;
 
 int main(int argc, char *argv[])
 {
-     double dt, r, g;
-     int i, j = 0;
+     double dt, r;
+     int i;
 
      set_gravity(GRAVITY_C);
      

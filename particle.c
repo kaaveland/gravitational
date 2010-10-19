@@ -1,5 +1,6 @@
 #include "include/particle.h"
 
+
 static radius_calc calc_radius = log;
 
 radius_calc get_radius_calc(void)
@@ -115,10 +116,18 @@ particle_merge(particle_t *p1, particle_t *p2)
 }
 
 void
-particle_print(particle_t *p, FILE *fp)
+particle_sprint(particle_t *p, char *buf)
 {
-     fprintf(fp, "<Particle [Mass %g, Radius %g] in (%g, %g, %g) heading (%g, %g, %g)",
+     sprintf(buf, "<Particle [Mass %g, Radius %g] in [%g, %g, %g] heading to [%g, %g, %g]",
 	     p->mass, p->radius, p->position.x, p->position.y, p->position.z,
 	     p->velocity.x, p->velocity.y, p->velocity.z);
+}
+
+void
+particle_print(particle_t *p, FILE *fp)
+{
+     char buf[256];
+     particle_sprint(p, buf);
+     fprintf(fp, "%s", buf);
 }
 

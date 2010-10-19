@@ -45,5 +45,6 @@ particle_t particle_create(vector_t pos, vector_t vel, double mass, radius_calc 
 /* Merge two particles into one - call this if there's an intersection. */
 particle_t particle_merge(particle_t *p1, particle_t *p2);
 void particle_print(particle_t *p, FILE *fp);
+void particle_sprint(particle_t *p, char *buf);
 
 #endif
