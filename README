@@ -1,0 +1,4 @@
+A simple project that aims to implement a relatively easy-to-use
+library for simulating gravitational systems on a planetary scale.
+Implemented in C, with bindings for Python coming up, so that
+pygame can be used to draw simple images of systems.
