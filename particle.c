@@ -1,5 +1,7 @@
 #include "include/particle.h"
 
+static vector_t zero_vec = {0, 0, 0};
+
 double
 radius(double mass) 
 {
@@ -80,9 +82,11 @@ particle_intersection(particle_t *p1, particle_t *p2)
 particle_t
 mass_center(particle_t *particles, int amount, int skip)
 {
-     particle_t result;
+     particle_t result = {
+          zero_vec, zero_vec, 0, 0 /* Radius meaningless for pseudo-particle */
+     };
      int i;
-     
+
      for (i = 0; i < amount; i++) {
           if (i == skip) continue;
           result.mass += particles[i].mass;

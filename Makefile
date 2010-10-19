@@ -1,4 +1,4 @@
-CFLAGS = -std=gnu99 -Wall -Wextra -lm
+CFLAGS = -std=gnu99 -Wall -Wextra -lm -O3
 OBJECTS = particle.o gravity.o
 
 test: lib

@@ -10,11 +10,12 @@
 #include "particle.h"
 
 #define AU 149597871000.0 /* AU in meters */
-#define YEAR_SECONDS 60.0 * 60.0 * 24.0 * 365.25 /* Seconds in a year */
+#define YEAR_MINUTES 60.0 * 24.0 * 365.25
+#define YEAR_SECONDS 60.0 * YEAR_MINUTES /* Seconds in a year */
 #define LIGHT_YEAR 3E8 * YEAR_SECONDS /* Distance traveled by light in a year */
-#define SOLAR_MASS 2E30 /* Solar mass in kgs */
-#define EARTH_MASS 6E24 /* Earths mass in kgs */
-#define EARTH_SPEED 29780 /* Average earth speed in m/s */
+#define SOLAR_MASS 1.989E30 /* Solar mass in kgs */
+#define EARTH_MASS 5.9763E24 /* Earths mass in kgs */
+#define EARTH_SPEED 29780.0 /* Average earth speed in m/s */
 #define GRAVITY_FACTOR 6.67428E-11 /* Gravitational constant */
 
 /* F = G m1m2 / r ^ 2 */
