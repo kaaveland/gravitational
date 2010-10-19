@@ -2,6 +2,7 @@
 #define PARTICLE_H 1
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #define MASS_DENSITY 1.408E3 /* Assume density of the sun for mass */
 
@@ -52,10 +53,7 @@ particle_t particle_create(vector_t pos, vector_t vel, double mass, radius_calc 
 particle_t particle_merge(particle_t *p1, particle_t *p2);
 void particle_print(particle_t *p, FILE *fp);
 void particle_sprint(particle_t *p, char *buf);
-/* FIXME: implement n log n sorting of particles by distance from radius.
- * This allows n log n collision detection as we can only have collisions between
- * neighbours in this list, which means we can linearly check collisions and
- * the sorting becomes the dominant factor of the complexity. */
+/* Sort particles by distance to origin, this calls qsort */
 void particle_sort(particle_t *p, int amount);
 
 #endif

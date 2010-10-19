@@ -145,3 +145,25 @@ particle_print(particle_t *p, FILE *fp)
      particle_sprint(p, buf);
      fprintf(fp, "%s", buf);
 }
+
+int
+particle_cmp(void *p1, void *p2)
+{
+     particle_t *t1, *t2;
+     double diff;
+     
+     t1 = p1; t2 = p2;
+
+     diff = vector_length(&(t1->position)) - vector_length(&(t2->position));
+     if (diff < 0) return -1;
+     else if (diff == 0) return 0;
+     else return 1;
+}
+
+void
+particle_sort(particle_t *p, int amount)
+{
+     size_t n = (size_t) amount;
+     size_t sz = sizeof(particle_t);
+     qsort(p, n, sz, particle_cmp);
+}

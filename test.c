@@ -11,6 +11,7 @@ vector_t earth_vel = { .x = 0, .y = EARTH_SPEED, .z = 0};
 
 particle_t sun, earth;
 particle_t sun_t, earth_t;
+particle_t *particles;
 
 int main(int argc, char *argv[])
 {
@@ -21,6 +22,13 @@ int main(int argc, char *argv[])
      
      sun = particle_create(sun_pos, sun_vel, SOLAR_MASS, get_radius_calc());
      earth = particle_create(earth_pos, earth_vel, EARTH_MASS, get_radius_calc());
+     particles = malloc(9 * sizeof(*particles));
+
+     for (i = 0; i < 9; i++) {
+          vector_t position = { .x = (9 - i) * AU, .y = 0, .z = 0};
+          vector_t velocity = { .x = 0, .y = 0, .z = 0};
+          particles[i] = particle_create(position, velocity, EARTH_MASS, get_radius_calc());
+     }
      
      dt = 20.0;
      r = vector_length(&earth_pos);
@@ -46,6 +54,12 @@ int main(int argc, char *argv[])
           }
      
      }
+     particle_sort(particles, 9);
+     for (i = 0; i < 9; i++) {
+          particle_print(&particles[i], stdout);
+          putchar('\n');
+     }
+     free(particles);
      
      return EXIT_SUCCESS;
 }
