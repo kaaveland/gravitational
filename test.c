@@ -27,23 +27,23 @@ int main(int argc, char *argv[])
      printf("Initial distance = %g\n", r / AU);
      
      for (i = 0; i < 3 * dt * dt * 24 * 365; i++) {
-	  vector_t force = gravitation(&sun, &earth);
-	  vector_t pos;
-	  integrate(&earth_t, &earth, force, dt);
-	  vector_scale(&force, -1);
-	  integrate(&sun_t, &sun, force, dt);
-	  sun = sun_t;
-	  earth = earth_t;
-	  pos = earth.position;
-	  if (i % (int) (dt * dt * 24) == 0) {
-	       vector_sub(&pos, &sun.position);
-	       particle_print(&earth, stdout);
-	       putchar('\n');
-	       r = vector_length(&earth.position) + vector_length(&sun.position);
-	       v = vector_length(&earth.velocity);
-	       particle_print(&sun, stdout);
-	       printf("\nDistance is %gAU, velocity is %g\n", r / AU, v);
-	  }
+          vector_t force = gravitation(&sun, &earth);
+          vector_t pos;
+          integrate(&earth_t, &earth, force, dt);
+          vector_scale(&force, -1);
+          integrate(&sun_t, &sun, force, dt);
+          sun = sun_t;
+          earth = earth_t;
+          pos = earth.position;
+          if (i % (int) (dt * dt * 24) == 0) {
+               vector_sub(&pos, &sun.position);
+               particle_print(&earth, stdout);
+               putchar('\n');
+               r = vector_length(&earth.position) + vector_length(&sun.position);
+               v = vector_length(&earth.velocity);
+               particle_print(&sun, stdout);
+               printf("\nDistance is %gAU, velocity is %g\n", r / AU, v);
+          }
      
      }
      

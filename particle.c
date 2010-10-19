@@ -12,12 +12,14 @@ radius(double mass)
 
 static radius_calc calc_radius = radius;
 
-radius_calc get_radius_calc(void)
+radius_calc
+get_radius_calc(void)
 {
      return calc_radius;
 }
 
-void set_radius_calc(radius_calc calc)
+void
+set_radius_calc(radius_calc calc)
 {
      calc_radius = calc;
 }
@@ -82,15 +84,15 @@ mass_center(particle_t *particles, int amount, int skip)
      int i;
      
      for (i = 0; i < amount; i++) {
-	  if (i == skip) continue;
-	  result.mass += particles[i].mass;
+          if (i == skip) continue;
+          result.mass += particles[i].mass;
      }
      for (i = 0; i < amount; i++) {
-	  double weight = particles[i].mass / result.mass;
-	  vector_t tmp = particles[i].position;
-	  if (i == skip) continue;
-	  vector_scale(&tmp, weight);
-	  vector_add(&result.position, &tmp);
+          double weight = particles[i].mass / result.mass;
+          vector_t tmp = particles[i].position;
+          if (i == skip) continue;
+          vector_scale(&tmp, weight);
+          vector_add(&result.position, &tmp);
      }
      return result;
 }
@@ -99,13 +101,13 @@ particle_t
 particle_create(vector_t pos, vector_t vel, double mass, radius_calc f)
 {
      particle_t result = {
-	  .position = pos,
-	  .velocity = vel,
-	  .mass = mass,
-	  .radius = log(mass)
+          .position = pos,
+          .velocity = vel,
+          .mass = mass,
+          .radius = log(mass)
      };
      if (f)
-	  result.radius = f(mass);
+          result.radius = f(mass);
      return result;
 }
 
@@ -132,8 +134,8 @@ particle_sprint(particle_t *p, char *buf)
 {
      /* FIXME: Should be able to scale by light years or AUs or whatever */
      sprintf(buf, "<[Mass %g, Radius %g] pos = [%g, %g, %g] v = [%g, %g, %g]>",
-	     p->mass, p->radius, p->position.x, p->position.y, p->position.z,
-	     p->velocity.x, p->velocity.y, p->velocity.z);
+             p->mass, p->radius, p->position.x, p->position.y, p->position.z,
+             p->velocity.x, p->velocity.y, p->velocity.z);
 }
 
 void

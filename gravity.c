@@ -47,7 +47,7 @@ integrate(particle_t *dst, particle_t *src, vector_t force, double dt)
      vector_scale(&acceleration, a);
 #ifdef DEBUG
      printf("Induced acceleration in particle is: [%g, %g, %g] m/s ^ 2\n",
-	    acceleration.x, acceleration.y, acceleration.z);
+            acceleration.x, acceleration.y, acceleration.z);
 #endif
      vector_scale(&acceleration, dt);
      dst->mass = src->mass;
@@ -60,8 +60,8 @@ integrate(particle_t *dst, particle_t *src, vector_t force, double dt)
      vector_add(&dst->position, &acceleration);
 #ifdef DEBUG
      printf("New location for particle is [%g, %g, %g]\n",
-	    dst->position.x, dst->position.y, dst->position.z);
+            dst->position.x, dst->position.y, dst->position.z);
      printf("New velocity for particle is [%g, %g, %g]\n",
-	    dst->velocity.x, dst->velocity.y, dst->velocity.z);
+            dst->velocity.x, dst->velocity.y, dst->velocity.z);
 #endif
 }
